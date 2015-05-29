@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppraisalFeedBack.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AppraisalFeedBackStoreContainer">
+    <EntitySet Name="Appraisals" EntityType="AppraisalFeedBack.Store.Appraisals" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Appraisees" EntityType="AppraisalFeedBack.Store.Appraisees" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AppraisalAppraisee" Association="AppraisalFeedBack.Store.AppraisalAppraisee">
+      <End Role="Appraisal" EntitySet="Appraisals" />
+      <End Role="Appraisee" EntitySet="Appraisees" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Appraisals">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AppraisalYear" Type="smallint" Nullable="false" />
+    <Property Name="AppraisalType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CustomerEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AppraisalStatus" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ValidationKey" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Appraisees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AppraisalId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="AppraisalAppraisee">
+    <End Role="Appraisal" Type="AppraisalFeedBack.Store.Appraisals" Multiplicity="1" />
+    <End Role="Appraisee" Type="AppraisalFeedBack.Store.Appraisees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appraisal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appraisee">
+        <PropertyRef Name="AppraisalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AppraisalFeedBack" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="AppraisalFeedBackContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appraisals" EntityType="AppraisalFeedBack.Appraisal" />
+          <EntitySet Name="Appraisees" EntityType="AppraisalFeedBack.Appraisee" />
+          <AssociationSet Name="AppraisalAppraisee" Association="AppraisalFeedBack.AppraisalAppraisee">
+            <End Role="Appraisal" EntitySet="Appraisals" />
+            <End Role="Appraisee" EntitySet="Appraisees" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Appraisal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" />
+          <Property Name="AppraisalYear" Type="Int16" Nullable="false" />
+          <Property Name="AppraisalType" Type="String" Nullable="true" />
+          <Property Name="CustomerEmail" Type="String" Nullable="false" />
+          <Property Name="AppraisalStatus" Type="String" Nullable="true" />
+          <Property Name="ValidationKey" Type="String" Nullable="true" />
+          <NavigationProperty Name="Appraisees" Relationship="AppraisalFeedBack.AppraisalAppraisee" FromRole="Appraisal" ToRole="Appraisee" />
+        </EntityType>
+        <EntityType Name="Appraisee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Appraisal" Relationship="AppraisalFeedBack.AppraisalAppraisee" FromRole="Appraisee" ToRole="Appraisal" />
+          <Property Name="AppraisalId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="AppraisalAppraisee">
+          <End Type="AppraisalFeedBack.Appraisal" Role="Appraisal" Multiplicity="1" />
+          <End Type="AppraisalFeedBack.Appraisee" Role="Appraisee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appraisal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appraisee">
+              <PropertyRef Name="AppraisalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AppraisalFeedBackStoreContainer" CdmEntityContainer="AppraisalFeedBackContext">
+    <EntitySetMapping Name="Appraisals">
+      <EntityTypeMapping TypeName="IsTypeOf(AppraisalFeedBack.Appraisal)">
+        <MappingFragment StoreEntitySet="Appraisals">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+          <ScalarProperty Name="AppraisalType" ColumnName="AppraisalType" />
+          <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+          <ScalarProperty Name="AppraisalStatus" ColumnName="AppraisalStatus" />
+          <ScalarProperty Name="ValidationKey" ColumnName="ValidationKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appraisees">
+      <EntityTypeMapping TypeName="IsTypeOf(AppraisalFeedBack.Appraisee)">
+        <MappingFragment StoreEntitySet="Appraisees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="AppraisalId" ColumnName="AppraisalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

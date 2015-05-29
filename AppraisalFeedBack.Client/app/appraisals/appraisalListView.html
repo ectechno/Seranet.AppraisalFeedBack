@@ -1,0 +1,40 @@
+﻿<div class="panel panel-primary" >
+    <div class="panel-heading" style="font-size:Large">
+        Appraisals List
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Project Name</td>
+                    <td>Appraisal Type</td>
+                    <td>Appraisal Year</td>
+                    <td>Customer Email</td>
+                    <td>Appraisal Status</td>
+                    <td> </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="appraisal in vm.appraisals">
+                    <td>{{ appraisal.projectName }}</td>
+                    <td>{{appraisal.appraisalType}}</td>
+                    <td>{{appraisal.appraisalYear}}</td>
+                    <td>{{appraisal.customerEmail}}</td>
+                    <td>{{appraisal.appraisalStatus}}</td>
+                    <td>
+                        <div class="button-group">
+                            <a data-ui-sref="appraisalEdit({id: appraisal.id})" class="btn btn-default">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

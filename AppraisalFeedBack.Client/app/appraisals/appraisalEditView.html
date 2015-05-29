@@ -1,0 +1,62 @@
+﻿<form class="form-horizontal" name="appraisalForm" >
+    <fieldset>
+        <legend>{{vm.title}}</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputProjectName">Project Name</label>
+            <input class="col-md-4" name="inputProjectName" id="inputProjectName" 
+                   ng-model="vm.appraisal.projectName" 
+                   required />
+            <span class="help-block has-error">
+                <span ng-show="appraisalForm.inputProjectName.$error.required">Project Name is required</span>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputAppraisalType">Appraisal Type</label>
+            <input class="col-md-4" name="inputAppraisalType" id="inputAppraisalType"
+                   ng-model="vm.appraisal.appraisalType" />
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputAppraisalYear">Appraisal Year</label>
+            <input class="col-md-4" name="inputAppraisalYear" id="inputAppraisalYear"
+                   ng-model="vm.appraisal.appraisalYear" 
+                   required />
+            <span class="help-block has-error">
+                <span ng-show="appraisalForm.inputAppraisalYear.$error.required">Year of appraisal is required</span>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputCustomerEmail">Customer Email</label>
+            <input class="col-md-4" name="inputCustomerEmail" id="inputCustomerEmail"
+                   ng-model="vm.appraisal.customerEmail" />
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputAppraisalStatus">Appraisal Status</label>
+            <input class="col-md-4" name="inputAppraisalStatus" id="inputAppraisalStatus"
+                   ng-model="vm.appraisal.appraisalStatus" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+                <span>
+                    <button class="btn btn-primary"
+                            style="width:80px; margin-right:10px"
+                            ng-click="vm.submit()"
+                            ng-disabled="appraisalForm.$invalid">
+                        Save
+                    </button>
+                </span>
+                <span>
+                    <button class="btn btn-default"
+                            style="width:70px"
+                            ng-click="vm.cancel(appraisalForm)">
+                        Cancel
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group" ng-show="vm.message">
+            <div class="col-md-6">
+                <pre style="font: inherit">{{vm.message}}</pre>
+            </div>
+        </div>
+    </fieldset>
+</form>

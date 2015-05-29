@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8" >
+    <title>Appraisal Feed Back</title>
+
+    <!-- Style Sheets-->
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body ng-app="appraisalFeedBack" ng-controller="MainCtrl as vm">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">Appraisal Feed Back</div>
+                <div>
+                    <form ng-hide="vm.isLoggedIn()" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="username(email)"
+                                   ng-model="vm.userData.email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="password"
+                                   ng-model="vm.userData.password" />
+                        </div>
+                        <button class="btn btn-primary" type="submit" ng-click="vm.login()">
+                            Log in
+                        </button>
+                        <!--<button class="btn btn-default" type="submit" ng-click="vm.register()">
+                            Register
+                        </button>-->
+                        <div ng-show="vm.message">{{vm.message}}</div>
+                    </form>
+                </div>
+                <div ng-if="vm.isLoggedIn()">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a data-ui-sref="appraisalList">Appraisal List</a>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a class="btn btn-default" data-ui-sref="appraisalEdit({id:0})"><i class="glyphicon glyphicon-plus"></i>Add Appraisal</a>
+                            </p>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+     <!--  <div ng-if="vm.isLoggedIn()" ng-include="'app/appraisals/appraisalListView.html'"></div>  --> 
+        <div ng-if="vm.isLoggedIn()" data-ui-view ></div>
+    </div>
+
+    <!--Library Scripts-->
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-ui-router.js"></script>
+
+    <!--App Scripts-->
+    <script src="app/app.js"></script>
+
+    <!--Controller scripts-->
+    <script src="app/appraisals/appraisalListCtrl.js"></script>
+    <script src="app/appraisals/appraisalEditCtrl.js"></script>
+    <script src="app/mainCtrl.js"></script>
+
+    <!--Services-->
+    <script src="common/common.services.js"></script>
+    <script src="common/appraisalResource.js"></script>
+    <script src="common/userAccount.js"></script>
+    <script src="common/currentUser.js"></script>
+</body>
+</html>
