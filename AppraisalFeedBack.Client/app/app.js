@@ -3,7 +3,7 @@
     "use strict";
 
     var app = angular.module("appraisalFeedBack",
-        ["common.services", "ui.router"]);
+        ["common.services", "ui.router", "ui.mask"]);
 
     app.config(["$stateProvider","$urlRouterProvider",
         function ($stateProvider, $urlRouterProvider) {

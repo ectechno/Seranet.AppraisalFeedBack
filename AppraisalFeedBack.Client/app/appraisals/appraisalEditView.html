@@ -1,10 +1,11 @@
-﻿<form class="form-horizontal" name="appraisalForm" >
+﻿<form class="form-horizontal" name="appraisalForm" novalidate >
     <fieldset>
         <legend>{{vm.title}}</legend>
         <div class="form-group">
             <label class="col-md-2 control-label" for="inputProjectName">Project Name</label>
-            <input class="col-md-4" name="inputProjectName" id="inputProjectName" 
-                   ng-model="vm.appraisal.projectName" 
+            <input class="col-md-4" name="inputProjectName" id="inputProjectName"
+                   ng-model="vm.appraisal.projectName"
+                   ng-class="{'has-error':appraisalForm.inputProjectName.$invalid}"
                    required />
             <span class="help-block has-error">
                 <span ng-show="appraisalForm.inputProjectName.$error.required">Project Name is required</span>
@@ -12,13 +13,17 @@
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="inputAppraisalType">Appraisal Type</label>
-            <input class="col-md-4" name="inputAppraisalType" id="inputAppraisalType"
-                   ng-model="vm.appraisal.appraisalType" />
+            <!--<input class="col-md-4" name="inputAppraisalType" id="inputAppraisalType"
+                   ng-model="vm.appraisal.appraisalType" />-->
+            <select name="inputAppraisalType" id="inputAppraisalType" ng-model="vm.selectedItem" ng-options="item as item.name for item in vm.appraisalTypes track by item.name" ng-change="vm.changeType(vm.selectedItem)" required>
+
+            </select>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="inputAppraisalYear">Appraisal Year</label>
             <input class="col-md-4" name="inputAppraisalYear" id="inputAppraisalYear"
-                   ng-model="vm.appraisal.appraisalYear" 
+                   ng-model="vm.appraisal.appraisalYear"
+                   data-ui-mask="9999" 
                    required />
             <span class="help-block has-error">
                 <span ng-show="appraisalForm.inputAppraisalYear.$error.required">Year of appraisal is required</span>

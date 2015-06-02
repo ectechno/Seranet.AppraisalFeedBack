@@ -8,9 +8,11 @@
 
         var vm = this;
         vm.appraisal = {};
-
-
+        vm.appraisalTypes = [
+        { name: 'Year End' },
+        { name: 'Mid Year' }];
         vm.appraisal = appraisal;
+        vm.selectedItem = { name: vm.appraisal.appraisalType };
         vm.originalAppraisal = angular.copy(appraisal);
 
         if (vm.appraisal && vm.appraisal.id) {
@@ -21,7 +23,7 @@
 
         vm.submit = function () {
 
-            if (vm.appraisal.id != 0) {
+            if (vm.appraisal.id != 0) {               
                 vm.appraisal.$update({ id: vm.appraisal.id }, function (data) {
                     vm.message = "....Save Complete";
                 });
@@ -40,6 +42,9 @@
             editForm.$setPristine();
             vm.appraisal = angular.copy(vm.originalAppraisal);
 
+        };
+        vm.changeType = function (item) {
+            vm.appraisal.appraisalType = item.name;
         };
 
     };
